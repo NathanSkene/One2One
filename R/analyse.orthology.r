@@ -23,25 +23,26 @@ analyse.orthology <- function(species1="mouse",species2="human",allHomologs=allH
 
     species1_srt = gsub(",.*","",species1)
     species2_srt = gsub(",.*","",species2)
-
-    hom_vert = allHomologs[allHomologs$`Common Organism Name` %in% c(species1,species2),c("HomoloGene ID","Common Organism Name","Symbol")] %>% unique
+    
+    # Chnage the HomoloGene ID to DB Class Key
+    hom_vert = allHomologs[allHomologs$`Common Organism Name` %in% c(species1,species2),c("DB Class Key","Common Organism Name","Symbol")] %>% unique
     species1_hom  = hom_vert[hom_vert$`Common Organism Name`==species1,] %>% dplyr::rename(species1.symbol=Symbol)
     species2_hom  = hom_vert[hom_vert$`Common Organism Name`==species2,] %>% dplyr::rename(species2.symbol=Symbol)
     colnames(species1_hom)[3]=sprintf("%s.symbol",species1_srt)
     colnames(species2_hom)[3]=sprintf("%s.symbol",species2_srt)
-    allHomologsInSpecies = merge(species1_hom[,c(1,3)],species2_hom[,c(1,3)],by="HomoloGene ID",all=TRUE)
+    allHomologsInSpecies = merge(species1_hom[,c(1,3)],species2_hom[,c(1,3)],by="DB Class Key",all=TRUE)
 
-    species1_allGenes = unique(species1_hom$`HomoloGene ID`)
-    species2_allGenes = unique(species2_hom$`HomoloGene ID`)
+    species1_allGenes = unique(species1_hom$`DB Class Key`)
+    species2_allGenes = unique(species2_hom$`DB Class Key`)
     total_numS1genes = length(species1_allGenes)
     total_numS2genes = length(species2_allGenes)
     print(sprintf("Full dataset contains %s genes from %s",total_numS1genes,species1_srt))
     print(sprintf("Full dataset contains %s genes from %s",total_numS2genes,species2_srt))
 
     # Keep only genes which are expressed in both species
-    shared_genes = intersect(species1_hom$`HomoloGene ID`,species2_hom$`HomoloGene ID`)
-    species1_sharedHom = species1_hom[species1_hom$`HomoloGene ID` %in% shared_genes,]
-    species2_sharedHom = species2_hom[species2_hom$`HomoloGene ID` %in% shared_genes,]
+    shared_genes = intersect(species1_hom$`DB Class Key`,species2_hom$`DB Class Key`)
+    species1_sharedHom = species1_hom[species1_hom$`DB Class Key` %in% shared_genes,]
+    species2_sharedHom = species2_hom[species2_hom$`DB Class Key` %in% shared_genes,]
 
     # Find genes which were deleted in one species
     species1_present_species2_deleted = setdiff(species1_allGenes,shared_genes)
@@ -60,11 +61,11 @@ analyse.orthology <- function(species1="mouse",species2="human",allHomologs=allH
     print(sprintf("%s genes are duplicated in %s",length(species2_duplicated_homoloID),species2_srt))
 
     # Drop genes that have more than one entry per species
-    species1_onceOnly = species1_freq %>% dplyr::filter(Freq==1) %>% .[,"HomoloGene.ID"] %>% as.character()
-    species2_onceOnly = species2_freq %>% dplyr::filter(Freq==1) %>% .[,"HomoloGene.ID"] %>% as.character()
+    species1_onceOnly = species1_freq %>% dplyr::filter(Freq==1) %>% .[,"DB.Class.Key"] %>% as.character()
+    species2_onceOnly = species2_freq %>% dplyr::filter(Freq==1) %>% .[,"DB.Class.Key"] %>% as.character()
     oncePerSpecies = intersect(species1_onceOnly,species2_onceOnly)
-    species1_121 = species1_sharedHom[species1_sharedHom$`HomoloGene ID` %in% oncePerSpecies,]
-    species2_121 = species2_sharedHom[species2_sharedHom$`HomoloGene ID` %in% oncePerSpecies,]
+    species1_121 = species1_sharedHom[species1_sharedHom$`DB Class Key` %in% oncePerSpecies,]
+    species2_121 = species2_sharedHom[species2_sharedHom$`DB Class Key` %in% oncePerSpecies,]
     colnames(species1_121)[3]=sprintf("%s.symbol",species1_srt)
     colnames(species2_121)[3]=sprintf("%s.symbol",species2_srt)
 
@@ -74,7 +75,7 @@ analyse.orthology <- function(species1="mouse",species2="human",allHomologs=allH
     species2_dup_species1_dup = intersect(species2_duplicated_homoloID,species1_duplicated_homoloID)
 
     # Get merged listing of 1:1 homologs
-    merged_homologs = merge(species1_121[,c(1,3)],species2_121[,c(1,3)],by="HomoloGene ID")
+    merged_homologs = merge(species1_121[,c(1,3)],species2_121[,c(1,3)],by="DB Class Key")
     print(sprintf("%s are shared 1:1 between the two species",dim(merged_homologs)[1]))
 
     # Prepare results
