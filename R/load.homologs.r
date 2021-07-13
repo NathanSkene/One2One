@@ -6,12 +6,20 @@
 #'
 #' @examples
 #' allHomologs = load.homologs()
-#'
+#' @importFrom utils download.file unzip read.table
 #' @export
 load.homologs <- function(){
     # Load the homolog data from MGI
-    #hom_vert = suppressWarnings(read.table("http://www.informatics.jax.org/downloads/reports/HOM_AllOrganism.rpt",sep="\t",fill=TRUE,stringsAsFactors = FALSE))
-    hom_vert = read.table("http://www.informatics.jax.org/downloads/reports/HOM_AllOrganism.rpt",sep="\t",stringsAsFactors = FALSE,quote="")
+    #read.table("http://www.informatics.jax.org/downloads/reports/HOM_AllOrganism.rpt",sep="\t",stringsAsFactors = FALSE,quote="")
+    #zipped file, need to unzip in temp directory
+    temp <- tempdir()
+    download.file("https://github.com/NathanSkene/One2One/files/6800774/HOM_AllOrganism.rpt.txt.zip",
+                    paste0(temp,"/hom_vert.zip"),mode="wb")
+    unzip(paste0(temp,"/hom_vert.zip"),"HOM_AllOrganism.rpt.txt",exdir=temp)
+    hom_vert <- read.table(paste0(temp,"/HOM_AllOrganism.rpt.txt"),
+                                    sep="\t",fill=TRUE,quote="",
+                                    stringsAsFactors = FALSE)
+
     colnames(hom_vert) = hom_vert[1,]
     hom_vert = hom_vert[-1,]
 

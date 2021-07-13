@@ -10,11 +10,10 @@
 #'
 #' @examples
 #' ortholog_data = analyse.orthology("human","mouse")
-#'
+#' @import dplyr
+#' @import magrittr
 #' @export
-analyse.orthology <- function(species1="mouse",species2="human",allHomologs=allHomologs){
-    library(dplyr)
-    library(magrittr)
+analyse.orthology <- function(species1="mouse",species2="human",allHomologs=load.homologs()){
     #species1 = "mouse"
     #species2 = "human"
 

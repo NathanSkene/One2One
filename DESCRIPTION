@@ -1,7 +1,7 @@
 Package: One2One
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.1.1
 Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
@@ -9,6 +9,10 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports: 
+        dplyr,
+        magrittr
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
+RoxygenNote: 7.1.1
