@@ -1,5 +1,5 @@
 ---
-title: "One2one Orthologs"
+title: "One2One Orthologs"
 author: "Nathan Skene"
 date: "`r Sys.Date()`"
 output: rmarkdown::github_document
@@ -8,6 +8,10 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+# :warning: :warning:
+## `One2One` is now deprecated. Please use [`orthogene`](https://github.com/neurogenomics/orthogene) instead.
+# :warning: :warning:
 
 This package is used to get 1:1 orthologs based on MGI homology data from http://www.informatics.jax.org/homology.shtml
 

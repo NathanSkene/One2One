@@ -1,18 +1,35 @@
 Package: One2One
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.1
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Convert 1:1 Orthologs
+Version: 0.99.0
+Authors@R:
+    c(
+     person(given = "Nathan",
+           family = "Skene",
+           role = c("aut","cre"),
+           email = "nathan.skene@gmail.com",
+           comment = c(ORCID = "0000-0002-6807-3180")))   
+Description:  This package is used to get 1:1 orthologs based on
+    MGI homology data.
+URL: https://github.com/NathanSkene/One2One/
+BugReports: https://github.com/NathanSkene/One2One/issues
 Encoding: UTF-8
-LazyData: true
-Imports: 
-        dplyr,
-        magrittr
-Suggests: knitr,
-    rmarkdown
+Depends: R (>= 4.0)
+biocViews:
+Imports:
+    dplyr,
+    magrittr
+Suggests:
+    rworkflows,
+    methods,
+    markdown,
+    rmarkdown,
+    remotes,
+    knitr,
+    BiocStyle,
+    testthat (>= 3.0.0),
+    utils
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+License: GPL-3
+Config/testthat/edition: 3

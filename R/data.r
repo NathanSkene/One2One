@@ -1,6 +1,7 @@
 #' Table of 1:1 Human-->Mouse orthologs
 #'
-#' A dataset containing the MGI and HGNC symbols. This table was generated using this package.
+#' A dataset containing the MGI and HGNC symbols.
+#'  This table was generated using this package.
 #'
 #' @source
 #' The code to prepare the .Rda file file from the marker file is:
