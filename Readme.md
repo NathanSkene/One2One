@@ -3,6 +3,10 @@ One2one Orthologs
 Nathan Skene
 2018-01-17
 
+# :warning: :warning:
+## `One2One` is now deprecated. Please use [`orthogene`](https://github.com/neurogenomics/orthogene) instead.
+# :warning: :warning:
+
 This package is used to get 1:1 orthologs based on MGI homology data from <http://www.informatics.jax.org/homology.shtml>
 
 The data is processed within the package but for key species comparisons is also stored in the data
